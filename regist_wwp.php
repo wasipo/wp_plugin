@@ -12,6 +12,8 @@ License : GPL
 require_once("wp_meibo_loader.php");
 $classLoader = new ClassLoader();
 $classLoader->registerDir(dirname(__FILE__));
-$showtext = new wp_meibo_setting;
+$set = new wp_meibo_setting;
+
 
 ?>
+
