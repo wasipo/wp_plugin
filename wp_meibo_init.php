@@ -10,17 +10,9 @@ class wp_meibo_setting
     public function add_pages() 
     {
       add_menu_page(
-        'テキスト設定','テキスト設定',  'level_8', __FILE__, 
-        array($this,'show_text_option_page'), '', 26
+        'フォーム設定','フォーム設定',  'level_8', __FILE__, 
+        array($this,'meibo_setting_html'), '', 26
         );
-    }
-
-    public function show_text_option_page() 
-    {
-        
-
-
-
     }
 
 }

@@ -45,7 +45,6 @@ class ClassLoader{
         foreach ($this->dirs as $dir) {
 
             $file = $dir . '/' .  $classname . '.php';
-            var_dump($file);
             if(is_readable($file)){
                 require $file;
                 return;
