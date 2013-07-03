@@ -67,9 +67,10 @@ class wp_meibo_setting
 
                     if(jQuery(this).next("input").attr("type") !== "text")
                     {
+                       var d_id = jQuery(this).parent("div").attr("id");
                        var eleid = jQuery(this).parent("div").attr("id").substr(-1);
-                       jQuery(this).after('<input type="text" name="" placeholder="アンケート項目" /><br /><p>詳細聞きたい？</p>いらない<input type="radio" value="1" name="shosai'+eleid+'" checked="checked">聞きたい<input name="shosai'+eleid+'" type="radio" value="2" />');
-                       addelement.radio(eleid);
+                       jQuery(this).after('<input type="text" name="" placeholder="アンケート項目" /><br /><p>詳細聞きたい？</p><span>いらない</span><input type="radio" value="1" name="shosai'+eleid+'" checked="checked"><span>聞きたい</span><input name="shosai'+eleid+'" type="radio" value="2" />');
+                       addelement.radio(eleid,d_id);
 
                     } else {
                        jQuery(this).next("input").remove();
@@ -84,7 +85,7 @@ class wp_meibo_setting
 
         var addelement = {};
 
-        addelement.radio = function(num)
+        addelement.radio = function(num,id)
         {
 
            jQuery("input[type=radio]").click(function()
@@ -93,8 +94,9 @@ class wp_meibo_setting
               {
                 jQuery(this).after('<div id="elenum'+num+'"><select id="sel'+num+'"><option>text</option><option>radio</option><option>checkbox</option></select><input type="text"　placeholder="何個？" name="s_'+num+'"></div>');
                 var selectid = jQuery(this).next("div").children("select").attr("id");
-                console.log(selectid);
               }
+              
+              jQuery('#'+id).children("p,span,input[type=radio]").remove();
 
            });
         }
