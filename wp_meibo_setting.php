@@ -32,6 +32,8 @@ class wp_meibo_setting
       }
 */
 
+      var_dump($_POST);
+
         echo <<<EOF
 
 
@@ -42,35 +44,67 @@ class wp_meibo_setting
 
                jQuery("input").eq(0).change(function()
                {
+              
+                 jQuery("#main div").remove();
+                 //jQuery("input[type=checkbox]").remove();
 
-                  jQuery("input[type=checkbox]").remove();
 
                   var num = 0;
                   var num = jQuery("input").eq(0).val();
                   
                   for(var i = 0; i < num; i++)
                   {
-                    jQuery("#main").after('<div id="name'+i+'"><input type="checkbox" ></div>');
+                    jQuery("#main").append('<div id="name'+i+'"><input type="checkbox" /></div>');
                   }
 
                   jQuery("input[type=checkbox]").change(function(e)
                   {
 
+                    if(jQuery(this).attr("checked") !== "checked")
+                    {
+                      jQuery(this).parent().remove();
+                    }
+
                     if(jQuery(this).next("input").attr("type") !== "text")
                     {
                        var eleid = jQuery(this).parent("div").attr("id").substr(-1);
                        jQuery(this).after('<input type="text" name="" placeholder="アンケート項目" /><br /><p>詳細聞きたい？</p>いらない<input type="radio" value="1" name="shosai'+eleid+'" checked="checked">聞きたい<input name="shosai'+eleid+'" type="radio" value="2" />');
+                       addelement.radio(eleid);
+
                     } else {
                        jQuery(this).next("input").remove();
                     }
 
                   });
 
-
               });
 
-
          });
+
+
+        var addelement = {};
+
+        addelement.radio = function(num)
+        {
+
+           jQuery("input[type=radio]").click(function()
+           {
+              if(jQuery(this).val() == 2)
+              {
+                jQuery(this).after('<div id="elenum'+num+'"><select id="sel'+num+'"><option>text</option><option>radio</option><option>checkbox</option></select><input type="text"　placeholder="何個？" name="s_'+num+'"></div>');
+                var selectid = jQuery(this).next("div").children("select").attr("id");
+                console.log(selectid);
+              }
+
+           });
+        }
+
+        addelement.repeatradio = function(obj)
+        {
+          // jQuery("#'+obj+'").
+        }
+
+
 
         </script>
 
@@ -78,7 +112,7 @@ class wp_meibo_setting
               <br />
               <br />
               <br />
-              何個項目作る？<input type="text" name="meibo_colum" size="2" />
+              何個項目作る？<input placeholder="半角" type="text" name="meibo_colum" size="3" />
               <!--DBどうする？
               &nbsp;&nbsp;&nbsp;使わない<input type="radio" name="meibo_db_use" checked="checked" value="1" />
               使いたい<input type="radio" name="meibo_db_use" value="2" /> -->
