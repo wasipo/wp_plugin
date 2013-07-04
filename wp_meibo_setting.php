@@ -69,7 +69,7 @@ class wp_meibo_setting
                     {
                        var d_id = jQuery(this).parent("div").attr("id");
                        var eleid = jQuery(this).parent("div").attr("id").substr(-1);
-                       jQuery(this).after('<input type="text" name="" placeholder="アンケート項目" /><br /><p>詳細聞きたい？</p><span>いらない</span><input type="radio" value="1" name="shosai'+eleid+'" checked="checked"><span>聞きたい</span><input name="shosai'+eleid+'" type="radio" value="2" />');
+                       jQuery(this).after('<input type="text" name="title'+eleid+'" placeholder="タイトル" /><br /><p>詳細聞きたい？</p><span>いらない</span><input type="radio" value="1" name="shosai'+eleid+'" checked="checked"><span>聞きたい</span><input name="shosai'+eleid+'" type="radio" value="2" />');
                        addelement.radio(eleid,d_id);
 
                     } else {
@@ -87,14 +87,27 @@ class wp_meibo_setting
 
         addelement.radio = function(num,id)
         {
-
            jQuery("input[type=radio]").click(function()
            {
               if(jQuery(this).val() == 2)
               {
-                jQuery(this).after('<div id="elenum'+num+'"><select id="sel'+num+'"><option>text</option><option>radio</option><option>checkbox</option></select><input type="text"　placeholder="何個？" name="s_'+num+'"></div>');
+                jQuery(this).after('<div id="elenum'+num+'"><select id="sel'+num+'" name="type'+num+'"><option value="1">text</option><option value="2">radio</option><option value="3">checkbox</option></select><input id="colum_'+num+'" type="text" placeholder="何個？" size="3"></div>');
                 var selectid = jQuery(this).next("div").children("select").attr("id");
+                var colum = jQuery(this).next("div").children("input[type=text]").attr("id");
               }
+
+
+              jQuery("#"+colum).change(selectid,function()
+              {
+
+                  var num = jQuery(this).val();
+                 
+                  for(var i = 0; i < num; i++)
+                  {
+                    jQuery(this).after('<input type="text" placeholder="項目名" name="'+selectid+'_col_'+i+'" />');
+                  }
+
+              });
               
               jQuery('#'+id).children("p,span,input[type=radio]").remove();
 
