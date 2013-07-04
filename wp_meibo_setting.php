@@ -42,6 +42,24 @@ class wp_meibo_setting
          jQuery(function()
          {
 
+
+              jQuery("#main").keypress(function(ev) {
+                if ((ev.which && ev.which === 13) || (ev.keyCode && ev.keyCode === 13)) {
+                  return false;
+                } else {
+                  return true;
+                }
+              });
+
+              jQuery("form#main").submit(function()
+              {
+
+                // return false;
+
+              });
+              
+
+
                jQuery("input").eq(0).change(function()
                {
               
@@ -69,7 +87,7 @@ class wp_meibo_setting
                     {
                        var d_id = jQuery(this).parent("div").attr("id");
                        var eleid = jQuery(this).parent("div").attr("id").substr(-1);
-                       jQuery(this).after('<input type="text" name="title'+eleid+'" placeholder="タイトル" /><br /><p>詳細聞きたい？</p><span>いらない</span><input type="radio" value="1" name="shosai'+eleid+'" checked="checked"><span>聞きたい</span><input name="shosai'+eleid+'" type="radio" value="2" />');
+                       jQuery(this).after('<input type="text" name="title'+eleid+'" placeholder="タイトル" /><br /><p>細かい設定する？</p><span>しない</span><input type="radio" value="1" name="shosai'+eleid+'" checked="checked"><span>する</span><input name="shosai'+eleid+'" type="radio" value="2" />');
                        addelement.radio(eleid,d_id);
 
                     } else {
@@ -109,7 +127,7 @@ class wp_meibo_setting
 
               });
               
-              jQuery('#'+id).children("p,span,input[type=radio]").remove();
+                  jQuery('#'+id).children("p,span,input[type=radio]").remove();
 
            });
         }
@@ -131,7 +149,7 @@ class wp_meibo_setting
               <!--DBどうする？
               &nbsp;&nbsp;&nbsp;使わない<input type="radio" name="meibo_db_use" checked="checked" value="1" />
               使いたい<input type="radio" name="meibo_db_use" value="2" /> -->
-              <input type="submit" value="送信" />
+              <input id="sub" type="submit" value="送信" />
         </form>
 
 EOF;
