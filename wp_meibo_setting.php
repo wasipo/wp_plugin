@@ -31,9 +31,7 @@ class wp_meibo_setting
         $this->wp_meibo_postdata();
       }
 */
-
-      var_dump($_POST);
-
+      
         echo <<<EOF
 
 
