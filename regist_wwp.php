@@ -8,5 +8,5 @@ Author: kouhei
 Author URI: http://mikaduki.info/
 License : GPL
 */
-require_once("instance.php");
+require_once("wp_meibo_instance.php");
 ?>

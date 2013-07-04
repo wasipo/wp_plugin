@@ -2,13 +2,13 @@
 
 class wp_meibo_check
 {
+
 	public $wp_meibo_midasi;
 	public $wp_meibo_naiyou;
 	private $count;
 	private $p_count;
 	public $data;
 	private $pattern;
-
 
 	function __construct()
 	{
@@ -17,14 +17,14 @@ class wp_meibo_check
 		session_start();
 	}
 
-	public function wp_meibo_check_main($data = "")
+	private function wp_meibo_check_main($data = "")
 	{
 
 		$this->wp_meibo_sanit($data);
 
 	}
 
-	public function wp_meibo_sanit($data = "")
+	private function wp_meibo_sanit($data = "")
 	{
 		$this->count = 0;
 		$this->p_count = 0;
@@ -45,23 +45,22 @@ class wp_meibo_check
 			if(preg_match($this->pattern,$key))
 			{
 				$this->p_count++;
-				$this->wp_meibo_naiyou($this->p_count,$val);
+				$this->wp_meibo_naiyou($this->count,$this->p_count,$val);
 			}
-
-
+			
 		}
 
 	}
 
 
-	public function wp_meibo_midasi($int,$val)
+	private function wp_meibo_midasi($int,$val)
 	{
 		$this->wp_meibo_midasi[$int] = $val;
 	}
 
-	public function wp_meibo_naiyou($int,$val)
+	private function wp_meibo_naiyou($int,$ints,$val)
 	{
-		$this->wp_meibo_naiyou[$int] = $val;
+		$this->wp_meibo_naiyou[$int][$ints] = $val;
 	}
 
 

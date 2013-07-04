@@ -31,7 +31,7 @@ class wp_meibo_setting
         $this->wp_meibo_postdata();
       }
 */
-      
+
         echo <<<EOF
 
 
@@ -144,9 +144,6 @@ class wp_meibo_setting
               <br />
               <br />
               何個項目作る？<input placeholder="半角" type="text" name="meibo_colum" size="3" />
-              <!--DBどうする？
-              &nbsp;&nbsp;&nbsp;使わない<input type="radio" name="meibo_db_use" checked="checked" value="1" />
-              使いたい<input type="radio" name="meibo_db_use" value="2" /> -->
               <input id="sub" type="submit" value="送信" />
         </form>
 
