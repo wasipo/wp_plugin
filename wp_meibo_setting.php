@@ -24,7 +24,6 @@ class wp_meibo_setting
 
         echo <<<EOF
 
-
          <script>
 
          jQuery(function()
@@ -125,8 +124,6 @@ class wp_meibo_setting
           // jQuery("#'+obj+'").
         }
 
-
-
         </script>
 
         <form action="#" method="post" id="main">
@@ -151,15 +148,27 @@ EOF;
         $this->inst_data = array(
               'comment_status' => 'closed',
               'ping_status' => 'closed',
-              'post_author' => $user
+              'post_author' => $user,
+              'post_type' => 'page',
+              'post_title' => 'form',
+              'post_content' => 'aaaa',
+              'tags_input' => 'form',
+              'post_name' => 'wp_form',
          );
 
     }
 
 
+    public function wp_meibo_inst_html($data)
+    {
 
 
-    //このメソッドはセッションでもPOSTでも使う
+
+
+    }
+
+
+    //このメソッドはセッションでもPOSTでも使う そのうち消えるであろうメソッド
     public function wp_meibo_postdata()
     {
         foreach($this->meibo_data as $val)
