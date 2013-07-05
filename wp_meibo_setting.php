@@ -4,6 +4,7 @@ class wp_meibo_setting
 {
 
     private $meibo_data;
+    public $inst_data;
 
 
     function __construct() {
@@ -20,17 +21,6 @@ class wp_meibo_setting
 
     public function wp_meibo_add_html_pages() 
     {
-
-/*    
-      $this->meibo_data = $_POST;
-      
-      if($this->wp_meibo_postdata())
-      {
-        $_SESSION["meibo_post_data"] = $_POST;
-        $this->meibo_data = $_SESSION["meibo_post_data"];
-        $this->wp_meibo_postdata();
-      }
-*/
 
         echo <<<EOF
 
@@ -153,6 +143,21 @@ EOF;
 
 
     }
+
+
+    public function wp_meibo_inst($user)
+    {
+
+        $this->inst_data = array(
+              'comment_status' => 'closed',
+              'ping_status' => 'closed',
+              'post_author' => $user
+         );
+
+    }
+
+
+
 
     //このメソッドはセッションでもPOSTでも使う
     public function wp_meibo_postdata()

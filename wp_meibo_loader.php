@@ -5,7 +5,7 @@
  * @author noto
  *
  */
-class ClassLoader{
+class WpwpwpClassLoader{
 
 
     /**
