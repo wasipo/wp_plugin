@@ -5,6 +5,10 @@ class wp_meibo_setting
 
     private $meibo_data;
     public $inst_data;
+    public $type;
+    public $perts_midasi;
+    public $perts_type;
+    public $perts_naiyou;
 
 
     function __construct() {
@@ -18,6 +22,9 @@ class wp_meibo_setting
         array($this,'wp_meibo_add_html_pages'), '', 26
         );
     }
+
+
+    //管理画面のHTML
 
     public function wp_meibo_add_html_pages() 
     {
@@ -142,7 +149,7 @@ EOF;
     }
 
 
-    public function wp_meibo_inst($user)
+    public function wp_meibo_inst($user,$num)
     {
 
         $this->inst_data = array(
@@ -153,19 +160,121 @@ EOF;
               'post_title' => 'form',
               'post_content' => 'aaaa',
               'tags_input' => 'form',
-              'post_name' => 'wp_form',
+              'post_name' => 'wp_form_meibo',
          );
 
     }
 
 
-    public function wp_meibo_inst_html($data)
+    public function wp_meibo_inst_html($data_midasi,$data_naiyou,$data_type)
+    {
+
+      //配列順序を整える為のメソッド。
+      //つまり、優秀な人には不要なメソッド。
+
+      $count = 0;
+      foreach($data_type as $key => $val)
+      {
+
+          switch($val)
+          {
+
+            case 1 :
+              $val = "text";
+              break;
+            case 2 :
+              $val = "radio";
+              break;
+            case 3 : 
+              $val = "checkbox";
+              break;
+            default :
+              $val = "不正な値";
+
+          }
+
+          $data_type[$count] = $val;
+
+        $count++;
+      }
+
+
+      $count = 0;
+      foreach($data_naiyou as $val)
+      {
+          $data_naiyou[$count] = $val;
+
+        $count++;
+      }
+
+
+      $count = 0;
+      foreach($data_midasi as $val)
+      {
+          $data_naiyou[$count] = $val;
+
+        $count++;
+      }
+
+
+      $this->wp_meibo_htmlcontent($data_type,$data_naiyou,$data_midasi);
+
+    }
+
+
+    //こっちは固定ページ自動投稿の関数へ渡すパラメータ
+
+    public function wp_meibo_htmlcontent($type,$data_naiyou,$data_midasi)
     {
 
 
+/* かんぺ
+echo <<<EOT
+My name is "$name". I am printing some $foo->foo.
+Now, I am printing some {$foo->bar[1]}.
+This should print a capital 'A': \x41
+EOT;
+
+ループ→EOF→てんぷれ？
+
+*/
+
+      foreach($data_midasi as $val)
+      {
+          $this->perts_midasi = <<<EOF
+          <p>"$val"</p>
+EOF;
+      }
+
+
+$count = 0;
+      foreach($data_naiyou as $val)
+      {
+        $this->perts_naiyou = <<<EOF
+
+        <label for=\n"{$type[$count]}\n"></label>
+
+EOF;
+        $count++;
+      }
+
+$count = 0;
+      foreach($type as $val)
+      {
+        $this->perts_type = <<<EOF
+        <input type="$val" name=\n"form_name"$count"\n" />
+EOF;
+      }
+
+
+
+      var_dump($this->perts_type);
 
 
     }
+
+
+
 
 
     //このメソッドはセッションでもPOSTでも使う そのうち消えるであろうメソッド
