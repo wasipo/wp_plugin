@@ -9,6 +9,7 @@ class wp_meibo_setting
     public $perts_midasi;
     public $perts_type;
     public $perts_naiyou;
+    public $html;
 
 
     function __construct() {
@@ -25,7 +26,6 @@ class wp_meibo_setting
 
 
     //管理画面のHTML
-
     public function wp_meibo_add_html_pages() 
     {
 
@@ -149,6 +149,7 @@ EOF;
     }
 
 
+    //固定ページに渡すパラメータ
     public function wp_meibo_inst($user,$num)
     {
 
@@ -193,31 +194,29 @@ EOF;
 
           }
 
-          $data_type[$count] = $val;
+          $type[$count] = $val;
 
         $count++;
       }
 
 
-      $count = 0;
+      $b_count = 0;
       foreach($data_naiyou as $val)
       {
-          $data_naiyou[$count] = $val;
-
-        $count++;
+          $data_naiyou[$b_count] = $val;
+          $b_count++;
       }
 
 
-      $count = 0;
+      $c_count = 0;
       foreach($data_midasi as $val)
       {
-          $data_naiyou[$count] = $val;
-
-        $count++;
+          $data_naiyou[$c_count] = $val;
+          $c_count++;
       }
 
 
-      $this->wp_meibo_htmlcontent($data_type,$data_naiyou,$data_midasi);
+      $this->wp_meibo_htmlcontent($type,$data_naiyou,$data_midasi);
 
     }
 
@@ -228,53 +227,76 @@ EOF;
     {
 
 
-/* かんぺ
-echo <<<EOT
-My name is "$name". I am printing some $foo->foo.
-Now, I am printing some {$foo->bar[1]}.
-This should print a capital 'A': \x41
-EOT;
+        for($i = 0; $i <= count($data_naiyou); $i++)
+        {
+            if(is_array($data_naiyou[$i]))
+            {
+              $naiyou[$i] = $data_naiyou[$i];
+            }
+        }
 
-ループ→EOF→てんぷれ？
-
-*/
-
-      foreach($data_midasi as $val)
-      {
-          $this->perts_midasi = <<<EOF
-          <p>"$val"</p>
-EOF;
-      }
+        //添字がばらばらだからForeach
 
 
-$count = 0;
-      foreach($data_naiyou as $val)
-      {
-        $this->perts_naiyou = <<<EOF
+        $count = 0;
+              foreach($data_midasi as $val)
+              {
+                  $this->perts_midasi[$count] = '<p>'.$val.'</p>';
+                  $count++;
+              }
 
-        <label for=\n"{$type[$count]}\n"></label>
+        $a_count = 0;
+        
+              foreach($naiyou as $val)
+              {
+                if(is_array($val))
+                {
+                  $c_count = 0;
+                  foreach($val as $v)
+                  {
+                    $this->perts_naiyou[$a_count][$c_count] = '<p>'.$v.'</p>';
+                    $c_count++;
+                  }
+                } 
+                $a_count++;
+              }
 
-EOF;
-        $count++;
-      }
-
-$count = 0;
-      foreach($type as $val)
-      {
-        $this->perts_type = <<<EOF
-        <input type="$val" name=\n"form_name"$count"\n" />
-EOF;
-      }
+        $b_count = 0;
+              foreach($type as $val)
+              {
+                $this->perts_type[$b_count] = '<input type="'.$val.'" name="form_name'.$b_count.'[]" />';
+                $b_count++;
+              }
 
 
-
-      var_dump($this->perts_type);
-
+        $this->join_html($this->perts_midasi,$this->perts_naiyou,$this->perts_type);
 
     }
 
 
+    //wp_meibo_htmlcontentをリソースにして結合するメソッド。
 
+    public function join_html($midasi,$naiyou,$type)
+    {
+
+    //  var_dump($naiyou);
+
+          for($i = 0; $i <= count($midasi); $i++)
+          {
+           // var_dump($midasi);
+              $this->html .= $midasi[$i];
+              if(is_array($naiyou[$i]))
+              {
+                for($j = 0; $j <= count($naiyou); $j++)
+                {
+                  $this->html .= $naiyou[$i][$j];
+                  $this->html .= $type[$i];
+                }
+              }
+          }
+
+          //var_dump($this->html);
+    }
 
 
     //このメソッドはセッションでもPOSTでも使う そのうち消えるであろうメソッド

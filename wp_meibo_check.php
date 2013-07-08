@@ -33,7 +33,7 @@ class wp_meibo_check
 		foreach($data as $key => $val)
 		{
 
-			$a = substr($key,-2);
+			//$a = substr($key,-2);
 
 			$this->pattern = '/^type\d|\d{2}/';
 			if(preg_match($this->pattern,$key))
