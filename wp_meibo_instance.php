@@ -11,6 +11,7 @@ require_once ABSPATH . WPINC . '/pluggable.php';
 global $current_user;
 get_currentuserinfo();
 
+global $wpdb;
 $results = $wpdb->get_results("SELECT ID FROM $wpdb->posts");
 $wp_meibo_post_datas = count($results) + 1;
 
