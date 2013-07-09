@@ -239,7 +239,7 @@ EOF;
         $b_count = 0;
               foreach($type as $val)
               {
-                $this->perts_type[$b_count] = '<input type="'.$val.'" name="form_name'.$b_count.'[]" />';
+                $this->perts_type[$b_count] = '<input type="'.$val.'" name="node'.$b_count.'" />';
                 $b_count++;
               }
 
@@ -256,8 +256,31 @@ EOF;
 
           for($i = 0; $i <= count($midasi); $i++)
           {
+
             if($i == 0)
             {
+              $this->html .= <<<EOF
+              <script>
+                      jQuery(function()
+                      {
+
+                          var i = "abc";
+
+                          jQuery("#wwp_form input[type=text]").each(function(e){
+
+                             jQuery(this).attr("name","text"+i+"["+e+"]");
+
+                          });
+
+                          jQuery("#wwp_form input[type=checkbox]").each(function(e){
+
+                             jQuery(this).attr("name","text"+i+"["+e+"]");
+
+                          });
+
+                      });
+              </script>
+EOF;
               $this->html .= '<div id="wwp_form_wrap"><form id="wwp_form" method="post" action="'.plugin_dir_url(__FILE__).'wp_meibo_post.php">';
             }
               $this->html .= $midasi[$i];
