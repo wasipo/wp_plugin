@@ -166,7 +166,7 @@ EOF;
                   'post_title' => 'form',
                   'post_content' => $html,
                   'tags_input' => 'form',
-                  'post_name' => 'wp_form_meibo',
+                  'post_name' => 'wp_form_meibo'.$num,
              );
         } else {
              return false;
@@ -208,23 +208,12 @@ EOF;
     }
 
 
-    //こっちは固定ページ自動投稿の関数へ渡すパラメータHTML整形用
+    //こっちは固定ページ自動投稿の関数へ渡すパラメータ
 
     public function wp_meibo_htmlcontent($type,$data_naiyou,$data_midasi)
     {
 
-
-/*
-        for($i = 0; $i <= count($data_naiyou); $i++)
-        {
-            if(is_array($data_naiyou[$i]))
-            {
-              $naiyou[$i] = $data_naiyou[$i];
-            }
-        }
-
-        //添字がばらばらだからForeach
-*/
+      //html入れた配列を生成
         $count = 0;
               foreach($data_midasi as $val)
               {
@@ -267,10 +256,9 @@ EOF;
 
           for($i = 0; $i <= count($midasi); $i++)
           {
-           // var_dump($midasi);
             if($i == 0)
             {
-              $this->html .= '<div id="wwp_form_wrap"><form id="wwp_form">';
+              $this->html .= '<div id="wwp_form_wrap"><form id="wwp_form" method="post" action="'.plugin_dir_url(__FILE__).'wp_meibo_post.php">';
             }
               $this->html .= $midasi[$i];
               if(is_array($naiyou[$i]))
@@ -283,7 +271,7 @@ EOF;
               }
             if($i == count($midasi))
             {
-              $this->html .= '</form></div>';
+              $this->html .= '<input type="submit" value="送信"></form></div>';
             } 
           }
 
