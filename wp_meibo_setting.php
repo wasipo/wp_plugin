@@ -154,19 +154,23 @@ EOF;
 
 
     //固定ページに渡すパラメータ
-    public function wp_meibo_inst($user,$num)
+    public function wp_meibo_inst($user,$num,$html="")
     {
-
-        $this->inst_data = array(
-              'comment_status' => 'closed',
-              'ping_status' => 'closed',
-              'post_author' => $user,
-              'post_type' => 'page',
-              'post_title' => 'form',
-              'post_content' => 'aaaa',
-              'tags_input' => 'form',
-              'post_name' => 'wp_form_meibo',
-         );
+        if(!empty($html))
+        {
+            $this->inst_data = array(
+                  'comment_status' => 'closed',
+                  'ping_status' => 'closed',
+                  'post_author' => $user,
+                  'post_type' => 'page',
+                  'post_title' => 'form',
+                  'post_content' => $html,
+                  'tags_input' => 'form',
+                  'post_name' => 'wp_form_meibo',
+             );
+        } else {
+             return false;
+        }
 
     }
 
@@ -209,9 +213,8 @@ EOF;
     public function wp_meibo_htmlcontent($type,$data_naiyou,$data_midasi)
     {
 
-        var_dump($type);
 
-
+/*
         for($i = 0; $i <= count($data_naiyou); $i++)
         {
             if(is_array($data_naiyou[$i]))
@@ -221,7 +224,7 @@ EOF;
         }
 
         //添字がばらばらだからForeach
-
+*/
         $count = 0;
               foreach($data_midasi as $val)
               {
@@ -230,7 +233,7 @@ EOF;
               }
 
         $a_count = 0;
-              foreach($naiyou as $val)
+              foreach($data_naiyou as $val)
               {
                 if(is_array($val))
                 {
@@ -262,20 +265,28 @@ EOF;
     public function join_html($midasi,$naiyou,$type)
     {
 
-
           for($i = 0; $i <= count($midasi); $i++)
           {
            // var_dump($midasi);
+            if($i == 0)
+            {
+              $this->html .= '<div id="wwp_form_wrap"><form id="wwp_form">';
+            }
               $this->html .= $midasi[$i];
               if(is_array($naiyou[$i]))
               {
-                for($j = 0; $j <= count($naiyou); $j++)
+                for($j = 0; $j < count($naiyou); $j++)
                 {
                   $this->html .= $naiyou[$i][$j];
                   $this->html .= $type[$i];
                 }
               }
+            if($i == count($midasi))
+            {
+              $this->html .= '</form></div>';
+            } 
           }
+
 
     }
 

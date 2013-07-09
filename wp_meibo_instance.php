@@ -20,7 +20,7 @@ if(!empty($wpwp_check->wp_meibo_midasi))
 {
 
 	$wpwp_set->wp_meibo_inst_html($wpwp_check->wp_meibo_midasi,$wpwp_check->wp_meibo_naiyou,$wpwp_check->wp_meibo_type);
-	$wpwp_set->wp_meibo_inst($current_user->user_login,$wp_meibo_post_datas);
+	$wpwp_set->wp_meibo_inst($current_user->user_login,$wp_meibo_post_datas,$wpwp_set->html);
 	$wp_rewrite = new WP_Rewrite();
 	$wpwpwp_db->wp_meibo_add($wpwp_check->wp_meibo_midasi,$wpwp_set->inst_data);
 }

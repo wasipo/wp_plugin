@@ -8,11 +8,9 @@ class wp_meibo_regit_database
     function wp_meibo_add($midasi = "",$data) 
     {
   
-      // wp_insert_post($data);
+      	wp_insert_post($data);
  
     }
 
 
 }
-
-
