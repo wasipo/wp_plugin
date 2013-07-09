@@ -1,5 +1,7 @@
 <?php
 
+
+
 class wp_meibo_setting 
 {
 
@@ -81,7 +83,7 @@ class wp_meibo_setting
                     {
                        var d_id = jQuery(this).parent("div").attr("id");
                        var eleid = jQuery(this).parent("div").attr("id").substr(-1);
-                       jQuery(this).after('<input type="text" name="title'+eleid+'" placeholder="タイトル" /><br /><p>細かい設定する？</p><span>しない</span><input type="radio" value="1" name="shosai'+eleid+'" checked="checked"><span>する</span><input name="shosai'+eleid+'" type="radio" value="2" />');
+                       jQuery(this).after('<input id="title_box'+eleid+'" type="text" name="title'+eleid+'" placeholder="タイトル" /><br />');
                        addelement.radio(eleid,d_id);
 
                     } else {
@@ -99,14 +101,16 @@ class wp_meibo_setting
 
         addelement.radio = function(num,id)
         {
-           jQuery("input[type=radio]").click(function()
+          console.log(num);
+           jQuery("#title_box"+num).change(function()
            {
-              if(jQuery(this).val() == 2)
-              {
-                jQuery(this).after('<div id="elenum'+num+'"><select id="sel'+num+'" name="type'+num+'"><option value="1">text</option><option value="2">radio</option><option value="3">checkbox</option></select><input id="colum_'+num+'" type="text" placeholder="何個？" size="3"></div>');
-                var selectid = jQuery(this).next("div").children("select").attr("id");
-                var colum = jQuery(this).next("div").children("input[type=text]").attr("id");
-              }
+
+              //ラジオ→テキスト変更。（分かりやすいから）
+
+               jQuery(this).after('<div id="elenum'+num+'"><select id="sel'+num+'" name="type'+num+'"><option value="1">text</option><option value="2">radio</option><option value="3">checkbox</option></select><input id="colum_'+num+'" type="text" placeholder="何個？" size="3"></div>');
+               var selectid = jQuery(this).next("div").children("select").attr("id");
+               var colum = jQuery(this).next("div").children("input[type=text]").attr("id");
+
 
 
               jQuery("#"+colum).change(selectid,function()
@@ -170,13 +174,11 @@ EOF;
     public function wp_meibo_inst_html($data_midasi,$data_naiyou,$data_type)
     {
 
-      //配列順序を整える為のメソッド。
-      //つまり、優秀な人には不要なメソッド。
 
       $count = 0;
       foreach($data_type as $key => $val)
       {
-
+        $count++;
           switch($val)
           {
 
@@ -194,37 +196,20 @@ EOF;
 
           }
 
-          $type[$count] = $val;
-
-        $count++;
+          $type[$count] = $val;        
       }
-
-
-      $b_count = 0;
-      foreach($data_naiyou as $val)
-      {
-          $data_naiyou[$b_count] = $val;
-          $b_count++;
-      }
-
-
-      $c_count = 0;
-      foreach($data_midasi as $val)
-      {
-          $data_naiyou[$c_count] = $val;
-          $c_count++;
-      }
-
 
       $this->wp_meibo_htmlcontent($type,$data_naiyou,$data_midasi);
 
     }
 
 
-    //こっちは固定ページ自動投稿の関数へ渡すパラメータ
+    //こっちは固定ページ自動投稿の関数へ渡すパラメータHTML整形用
 
     public function wp_meibo_htmlcontent($type,$data_naiyou,$data_midasi)
     {
+
+        var_dump($type);
 
 
         for($i = 0; $i <= count($data_naiyou); $i++)
@@ -237,7 +222,6 @@ EOF;
 
         //添字がばらばらだからForeach
 
-
         $count = 0;
               foreach($data_midasi as $val)
               {
@@ -246,7 +230,6 @@ EOF;
               }
 
         $a_count = 0;
-        
               foreach($naiyou as $val)
               {
                 if(is_array($val))
@@ -279,7 +262,6 @@ EOF;
     public function join_html($midasi,$naiyou,$type)
     {
 
-    //  var_dump($naiyou);
 
           for($i = 0; $i <= count($midasi); $i++)
           {
@@ -295,7 +277,6 @@ EOF;
               }
           }
 
-          //var_dump($this->html);
     }
 
 

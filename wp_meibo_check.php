@@ -28,6 +28,7 @@ class wp_meibo_check
 	private function wp_meibo_sanit($data = "")
 	{
 		$this->count = 0;
+		$bcount = 0;
 		$this->p_count = 0;
 
 		foreach($data as $key => $val)
@@ -45,8 +46,8 @@ class wp_meibo_check
 			$this->pattern = '/^[a-z]{5}[0-9]{1}/';
 			if(preg_match($this->pattern,$key))
 			{
-				$this->count++;
-				$this->wp_meibo_midasi($this->count,$val);
+				$bcount++;
+				$this->wp_meibo_midasi($bcount,$val);
 			}
 
 			$this->pattern = '/sel\d_col_\d|sel\d{2}_col_\d{2}/';
@@ -54,6 +55,8 @@ class wp_meibo_check
 			{
 				$this->p_count++;
 				$this->wp_meibo_naiyou($this->count,$this->p_count,$val);
+			} else {
+				$this->p_count = 0;
 			}
 			
 		}
@@ -72,7 +75,10 @@ class wp_meibo_check
 
 	private function wp_meibo_naiyou($int,$ints,$val)
 	{
-		$this->wp_meibo_naiyou[$int][$ints] = $val;
+		if(!empty($ints))
+		{
+			$this->wp_meibo_naiyou[$int][$ints] = $val;
+		}
 	}
 
 
