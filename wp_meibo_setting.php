@@ -244,7 +244,7 @@ EOF;
               }
 
 
-        $this->join_html($this->perts_midasi,$this->perts_naiyou,$this->perts_type);
+        $this->join_html($this->perts_midasi,$this->perts_aiyou,$this->perts_type);
 
     }
 
