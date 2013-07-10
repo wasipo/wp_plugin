@@ -13,8 +13,8 @@ class wp_meibo_check
 
 	function __construct()
 	{
-		$this->p_data = $_POST;
-		$this->wp_meibo_check_main($this->p_data);
+		//gut$this->p_data = $_POST;
+		//$this->wp_meibo_check_main($this->p_data);
 		session_start();
 	}
 
