@@ -178,7 +178,6 @@ EOF;
     public function wp_meibo_inst_html($data_midasi,$data_naiyou,$data_type)
     {
 
-
       $count = 0;
       foreach($data_type as $key => $val)
       {
