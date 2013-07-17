@@ -85,15 +85,10 @@ class wp_meibo_setting
                        var eleid = jQuery(this).parent("div").attr("id").substr(-2);
                        var reg = new RegExp(/e\d/);
                        var res = eleid.match(reg);
-
-
-                       if(res.index)
+                       if(res)
                        {
-                         console.log("a");
-                       } else {
-                         console.log("b");
+                          var eleid = jQuery(this).parent("div").attr("id").substr(-1);
                        }
-
 
                        jQuery(this).after('<input id="title_box'+eleid+'" type="text" name="title'+eleid+'" placeholder="タイトル" /><br />');
                        addelement.radio(eleid,d_id);
@@ -185,8 +180,9 @@ EOF;
 
 
     //固定ページに渡すパラメータ
-    public function wp_meibo_inst($user,$num,$html="")
+    public function wp_meibo_inst($user,$html="")
     {
+      var_dump($user);
         if(!empty($html))
         {
             $this->inst_data = array(
@@ -197,7 +193,7 @@ EOF;
                   'post_title' => 'form',
                   'post_content' => $html,
                   'tags_input' => 'form',
-                  'post_name' => 'wp_form_meibo'.$num,
+               //   'post_name' => 'wp_form_meibo'.$num,
              );
         } else {
              return false;
