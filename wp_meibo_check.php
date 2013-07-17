@@ -32,7 +32,7 @@ class wp_meibo_check
 		$bcount = 0;
 		$this->p_count = 0;
 
-		
+	var_dump($data);		
 
 		foreach($data as $key => $val)
 		{

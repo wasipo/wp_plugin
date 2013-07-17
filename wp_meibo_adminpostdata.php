@@ -17,10 +17,8 @@ class wp_meibo_adminpostdata
 
 		var_dump($columtype);
 
+		$this->pattern = '/^type\d|\d{2}/';
+
     }
-
-
-
-
 
 }

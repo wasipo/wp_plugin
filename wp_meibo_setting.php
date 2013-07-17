@@ -82,7 +82,19 @@ class wp_meibo_setting
                     if(jQuery(this).next("input").attr("type") !== "text")
                     {
                        var d_id = jQuery(this).parent("div").attr("id");
-                       var eleid = jQuery(this).parent("div").attr("id").substr(-1);
+                       var eleid = jQuery(this).parent("div").attr("id").substr(-2);
+                       var reg = new RegExp(/e\d/);
+                       var res = eleid.match(reg);
+
+
+                       if(res.index)
+                       {
+                         console.log("a");
+                       } else {
+                         console.log("b");
+                       }
+
+
                        jQuery(this).after('<input id="title_box'+eleid+'" type="text" name="title'+eleid+'" placeholder="タイトル" /><br />');
                        addelement.radio(eleid,d_id);
 
@@ -101,9 +113,13 @@ class wp_meibo_setting
 
         addelement.radio = function(num,id)
         {
-          console.log(num);
            jQuery("#title_box"+num).change(function()
            {
+
+              if(num < 10)
+              {
+                num = 0+num;
+              }
 
               //ラジオ→テキスト変更。（分かりやすいから）
 
@@ -115,14 +131,19 @@ class wp_meibo_setting
 
               jQuery("#"+colum).change(selectid,function()
               {
-
                   var num = jQuery(this).val();
                  
                   for(var i = 0; i < num; i++)
                   {
-                    jQuery(this).after('<input type="text" placeholder="項目名" name="'+selectid+'_col_'+i+'" />');
+                   if(num < 10)
+                    {
+                      jQuery(this).before('<input type="text" placeholder="項目名" name="'+selectid+'_col_0'+i+'" />');
+                    } else {
+                      jQuery(this).before('<input type="text" placeholder="項目名" name="'+selectid+'_col_'+i+'" />');
+                    }
                   }
-
+                  jQuery(this).remove();
+                  //落ち着いたら出す。
               });
               
                   jQuery('#'+id).children("p,span,input[type=radio]").remove();
@@ -135,6 +156,15 @@ class wp_meibo_setting
           // jQuery("#'+obj+'").
         }
 
+
+        var checks = {};
+
+        checks.check = function(foo)
+        {
+              return foo;
+        }
+
+
         </script>
 
         <form action="#" method="post" id="main">
@@ -144,6 +174,7 @@ class wp_meibo_setting
               何個項目作る？<input placeholder="半角" type="text" name="meibo_colum" size="3" />
               <input id="sub" type="submit" value="送信" />
         </form>
+
 
 EOF;
         
