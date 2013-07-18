@@ -118,7 +118,7 @@ class wp_meibo_setting
 
               //ラジオ→テキスト変更。（分かりやすいから）
 
-               jQuery(this).after('<div id="elenum'+num+'"><select id="sel'+num+'" name="type'+num+'"><option value="1">text</option><option value="2">radio</option><option value="3">checkbox</option></select><input id="colum_'+num+'" type="text" placeholder="何個？" size="3"></div>');
+               jQuery(this).after('<div id="elenum'+num+'"><select id="sel'+num+'" name="type'+num+'"><option value="1">text</option><option value="2">radio</option><option value="3">checkbox</option><option value="2">radio</option><option value="4">select</option></select><input id="colum_'+num+'" type="text" placeholder="何個？" size="3"></div>');
                var selectid = jQuery(this).next("div").children("select").attr("id");
                var colum = jQuery(this).next("div").children("input[type=text]").attr("id");
 
@@ -182,7 +182,6 @@ EOF;
     //固定ページに渡すパラメータ
     public function wp_meibo_inst($user,$html="")
     {
-      var_dump($user);
         if(!empty($html))
         {
             $this->inst_data = array(

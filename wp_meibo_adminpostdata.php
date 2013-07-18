@@ -37,6 +37,7 @@ class wp_meibo_adminpostdata
 
     private function merge_cont($type,$title,$columtype)
     {
+        $count = 0;
     	for($i = 0; $i < count($type); $i++)
     	{
     		if($i == 0){ $this->html .= '<div id="wwp_form_wrap"><form id="wwp_form" method="post" action="'.plugin_dir_url(__FILE__).'wp_meibo_post.php">';	}
@@ -52,21 +53,37 @@ class wp_meibo_adminpostdata
     				} else if($type["type".$a] == "2") {
     					$type["type".$a] = "radio";
     					$name = "radio".$i;
-    				} else if($type["type".$a] == "3"){
+    				} else if($type["type".$a] == "3") {
     					$type["type".$a] = "checkbox";
     					$name = "check".$i."[]";
-    				}
+    				} else if($type["type".$a] == "4") {
+                        $type["type".$a] = "select";
+                        $name = "select".$i;                        
+                    }
+
     				if($type["type".$a] == "text")
     				{
-    					$this->html .= '<input type="'.$type["type".$a].'" id="'.$key.'" name="'.$key.'" />';
-    				} else {
-    					$this->html .= '<input type="'.$type["type".$a].'" id="'.$key.'" name="'.$name.'" />';
+                        if($count == 0){ $this->html .= '<div id="post_box'.$i.'">'; }
+    					$this->html .= $val.'<input type="'.$type["type".$a].'" id="'.$key.'" name="'.$key.'" />';
+                        $count++;
+                        if($count == count($columtype["columnumsel".$a])){$this->html .= "</div>"; $count = 0;}
+    				} else if($type["type".$a] == "select") {
+                        if($count == 0){ $this->html .= '<div id="post_box'.$i.'"><select type="'.$type["type".$a].'" id="'.$key.'" name="'.$name.'">'; }
+                        $this->html .= '<option value="'.$val.'">'.$val.'</option>';
+                        $count++;
+                        if($count == count($columtype["columnumsel".$a])){$this->html .= "</select></div>"; $count = 0;}
+                    } else {
+                        if($count == 0){ $this->html .= '<div id="post_box'.$i.'">'; }
+    					$this->html .= $val.'<input type="'.$type["type".$a].'" id="'.$key.'" name="'.$name.'" value="'.$val.'" />';
+                        $count++;
+                        if($count == count($columtype["columnumsel".$a])){ $this->html .= "</div>"; $count = 0;}
     				}
 
     			}	
     		}
     	}
     	$this->html .= '<input type="submit" value="送信"></form></div>';
+        var_dump($this->html);
     }
 
 
