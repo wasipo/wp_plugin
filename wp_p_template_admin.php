@@ -29,9 +29,9 @@
                   var num = 0;
                   var num = jQuery("input").eq(0).val();
                   
-                  //10未満の条件分岐。いつか外したいなぁ。
+                  //10以下の条件分岐。いつか外したいなぁ。
 
-                  if(num < 10)
+                  if(num <= 10)
                   {
                     jQuery("#f_error").remove();
                     for(var i = 0; i < num; i++)
@@ -39,7 +39,7 @@
                       jQuery("#main").append('<div id="name'+i+'"><input type="checkbox" /></div>');
                     }
                   } else {
-                      jQuery("#main").after('<p id="f_error">10未満の数字を入力してください。</p>');
+                      jQuery("#main").after('<p id="f_error">10以下の数字を入力してください。</p>');
                   }
 
                   jQuery("input[type=checkbox]").change(function(e)
@@ -82,7 +82,7 @@
            jQuery("#title_box"+num).change(function()
            {
 
-              if(num < 10 && num.length !== 2)
+              if(num <= 10 && num.length !== 2)
               {
                 num = 0+num;
               }
@@ -92,7 +92,7 @@
 
               if(!id_ele)
               {
-               jQuery(this).after('<div id="elenum'+num+'"><select id="sel'+num+'" name="type'+num+'"><option value="1">text</option><option value="2">radio</option><option value="3">checkbox</option><option value="2">radio</option><option value="4">select</option></select><input id="colum_'+num+'" type="text" placeholder="何個？" size="3"></div>');
+               jQuery(this).after('<div id="elenum'+num+'"><select id="sel'+num+'" name="type'+num+'"><option value="1">text</option><option value="2">radio</option><option value="3">checkbox</option><option value="4">select</option></select><input id="colum_'+num+'" type="text" placeholder="何個？" size="3"></div>');
                var selectid = jQuery(this).next("div").children("select").attr("id");
                var colum = jQuery(this).next("div").children("input[type=text]").attr("id");
               }
@@ -102,21 +102,18 @@
               {
                   var num = jQuery(this).val();
                  
-                  if(num < 10)
+                  if(num <= 10)
                   {
                     jQuery("#f_error").remove();
                     for(var i = 0; i < num; i++)
                     {
-                     if(num < 10)
-                      {
+
                         jQuery(this).before('<input type="text" placeholder="項目名" name="'+selectid+'_col_0'+i+'" />');
-                      } else {
-                        jQuery(this).before('<input type="text" placeholder="項目名" name="'+selectid+'_col_'+i+'" />');
-                      }
+                      
                     }
                     jQuery(this).remove();
                   } else {
-                    jQuery(this).after('<p id="f_error">10未満の数字を入力してください。</p>');
+                    jQuery(this).after('<p id="f_error">10以下の数字を入力してください。</p>');
                   }
               });
               

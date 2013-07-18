@@ -69,27 +69,26 @@ class wp_meibo_adminpostdata
 
     				if($type["type".$a] == "text")
     				{
-                        if($count == 0){ $this->html .= '<div id="post_box'.$i.'"><h2>'.$title["title".$titlec].'</h2>'; }
+                        if($count == 0){ $this->html .= '<div id="post_box'.$i.'"><input type="hidden" name="'.$key.$count.'" value="'.$val.'" /><h2>'.$title["title".$titlec].'</h2>'; }
     					$this->html .= $val.'<input type="'.$type["type".$a].'" id="'.$key.'" name="'.$key.'" />';
                         $count++;
                         if($count == count($columtype["columnumsel".$a])){$this->html .= "</div>"; $count = 0;}
     				} else if($type["type".$a] == "select") {
-                        if($count == 0){ $this->html .= '<div id="post_box'.$i.'"><h2>'.$title["title".$titlec].'</h2><select type="'.$type["type".$a].'" id="'.$key.'" name="'.$name.'"><option value="nonenone">選択してください。</option>'; }
+                        if($count == 0){ $this->html .= '<div id="post_box'.$i.'"><input type="hidden" name="'.$key.$count.'" value="'.$val.'" /><h2>'.$title["title".$titlec].'</h2><select type="'.$type["type".$a].'" id="'.$key.'" name="'.$val.'"><option value="nonenone">選択してください。</option>'; }
                         $this->html .= '<option value="'.$val.'">'.$val.'</option>';
                         $count++;
                         if($count == count($columtype["columnumsel".$a])){$this->html .= "</select></div>"; $count = 0;}
                     } else {
-                        if($count == 0){ $this->html .= '<div id="post_box'.$i.'"><h2>'.$title["title".$titlec].'</h2>'; }
+                        if($count == 0){ $this->html .= '<div id="post_box'.$i.'"><input type="hidden" name="'.$key.$count.'" value="'.$val.'" /><h2>'.$title["title".$titlec].'</h2>'; }
     					$this->html .= $val.'<input type="'.$type["type".$a].'" id="'.$key.'" name="'.$name.'" value="'.$val.'" />';
                         $count++;
                         if($count == count($columtype["columnumsel".$a])){ $this->html .= "</div>"; $count = 0;}
     				}
 
-    			}	
+    			}
     		}
     	}
     	$this->html .= '<input type="submit" value="送信"></form></div>';
-
     }
 
 

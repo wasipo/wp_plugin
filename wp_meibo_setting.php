@@ -5,14 +5,7 @@
 class wp_meibo_setting 
 {
 
-    private $meibo_data;
     public $inst_data;
-    public $type;
-    public $perts_midasi;
-    public $perts_type;
-    public $perts_naiyou;
-    public $html;
-
 
     function __construct() {
       add_action('admin_menu', array($this, 'wp_meibo_add_pages'));
@@ -54,27 +47,7 @@ class wp_meibo_setting
         } else {
              return false;
         }
-
     }
-
-
-
-    //このメソッドはセッションでもPOSTでも使う そのうち消えるであろうメソッド
-    public function wp_meibo_postdata()
-    {
-        foreach($this->meibo_data as $val)
-        {
-
-            if(!empty($val))
-            {
-                return true;
-            }
-
-        }
-
-    }
-
-
 
 }
 

@@ -26,15 +26,15 @@ class wp_meibo_check
 
 	}
 
-	private function wp_meibo_sanit($data = "")
+	protected function wp_meibo_sanit($data = "")
 	{
 	
 	//========postdata===========
-	//var_dump($data);
+	//このメソッドは出力後も使う
+	var_dump($data);
 
 		foreach($data as $key => $val)
 		{
-
 
 			$this->pattern = '/^type\d|type\d{2}/';
 			if(preg_match($this->pattern,$key))
@@ -51,8 +51,7 @@ class wp_meibo_check
 			$this->pattern = '/sel\d_col_\d|sel\d{2}_col_\d{2}/';
 			if(preg_match($this->pattern,$key))
 			{	
-				$this->wp_meibo_naiyou($key,$val);
-				
+				$this->wp_meibo_naiyou($key,$val);	
 			} 
 			
 		}

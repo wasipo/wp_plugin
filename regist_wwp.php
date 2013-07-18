@@ -1,10 +1,10 @@
 <?php
 /*
-Plugin name: wp_MeiboMan
+Plugin name: Super Simple MaiｌForm
 Plugin URI: http://mikaduki.info/
-Description: meibo
-Version: 0.0.4
-Author: kouhei
+Description: 分かりやすくて高機能なメールフォームにします。きっと。
+Version: 0.5.4
+Author: kouhei horiguchi
 Author URI: http://mikaduki.info/
 License : GPL
 */
