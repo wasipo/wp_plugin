@@ -3,7 +3,7 @@
 Plugin name: wp_MeiboMan
 Plugin URI: http://mikaduki.info/
 Description: meibo
-Version: 0.4.0
+Version: 0.0.4
 Author: kouhei
 Author URI: http://mikaduki.info/
 License : GPL

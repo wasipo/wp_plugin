@@ -17,9 +17,17 @@ if(!empty($wpwp_check->wp_meibo_midasi))
 	$wpwp_res = array();
 	$wpwp_post = new wp_meibo_adminpostdata($wpwp_check->wp_meibo_type,$wpwp_check->wp_meibo_midasi,$wpwp_check->wp_meibo_naiyou);
 	//var_dump($wpwp_post->html);
+	
 	$wpwp_set->wp_meibo_inst($current_user->ID,$wpwp_post->html);
+
+	
 	$wp_rewrite = new WP_Rewrite();
-	$wpwpwp_db->wp_meibo_add($wpwp_check->wp_meibo_midasi,$wpwp_set->inst_data);
+	if(!empty($wpwp_set->inst_data))
+	{
+		$wpwpwp_db->wp_meibo_add($wpwp_check->wp_meibo_midasi,$wpwp_set->inst_data);
+	} else {
+		echo "エラーが発生しました。何らかの理由でHTMLが作れませんでした。";
+	}
 }
 
 
