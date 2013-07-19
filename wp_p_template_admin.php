@@ -39,7 +39,7 @@
                       jQuery("#main").append('<div id="name'+i+'"><input type="checkbox" /></div>');
                     }
                   } else {
-                      jQuery("#main").after('<p id="f_error">10以下の数字を入力してください。</p>');
+                      jQuery("#main").after('<p id="f_error">10以下の半角数字を入力してください。</p>');
                   }
 
                   jQuery("input[type=checkbox]").change(function(e)

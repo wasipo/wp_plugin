@@ -5,7 +5,15 @@ class wp_meibo_regit_database
 
     private $db_serch;
     private $sanitdata;
-    private $pattern;
+
+	//正規表現パターン格納　どっかで使えるかなーと思って
+	//継承すればよかった。でもコンストラクタが居た。おわた。
+    public $patterntext;
+    public $patternradio;
+    public $patterncheckbox;
+    public $patternmidasi;
+    public $patternselect;
+
     public $text;
     public $checkbox;
     public $radio;
@@ -25,47 +33,47 @@ class wp_meibo_regit_database
     	foreach($postdata as $key => $val)
     	{
 
-    		htmlspecialchars($val,ENT_QUOTES);
+    		
+    		if(!is_array($val))
+    		{
+    			htmlspecialchars($val,ENT_QUOTES);
+    		}
 
-			$this->pattern = '/sel\d{2}_col_\d{2}$/';
-			if(preg_match($this->pattern,$key))
+			$this->patterntext = '/sel\d{2}_col_\d{2}$/';
+			if(preg_match($this->patterntext,$key))
 			{	
-				$text[$key] = $val;
+				$this->text[$key] = $val;
 			}
 
-			$this->pattern = '/checkbox\d/';
-			if(preg_match($this->pattern,$key))
+			$this->patterncheckbox = '/checkbox\d/';
+			if(preg_match($this->patterncheckbox,$key))
 			{	
-				$checkbox[$key] = $val;
+				$this->checkbox[$key] = $val;
 			}			
 
-			$this->pattern = '/radio\d/';
-			if(preg_match($this->pattern,$key))
+			$this->patternradio = '/radio\d/';
+			if(preg_match($this->patternradio,$key))
 			{	
-				$radio[$key] = $val;
+				$this->radio[$key] = $val;
 			}			
 
-			$this->pattern = '/select\d/';
-			if(preg_match($this->pattern,$key))
+			$this->patternselect = '/select\d/';
+			if(preg_match($this->patternselect,$key))
 			{	
-				$select[$key] = $val;
+				$this->select[$key] = $val;
 			}			
 
 
-			$this->pattern = '/sel\d{2}_col_\d{3}$/';
-			if(preg_match($this->pattern,$key))
+			$this->patternmidasi = '/sel\d{2}_col_\d{3}$/';
+			if(preg_match($this->patternmidasi,$key))
 			{	
-				$midasi[$key] = $val;
+				$this->midasi[$key] = $val;
 			}
 
     	}
 
-    	$this->wp_sanit_template();
     }
 
-    public function wp_sanit_template()
-    {
-    	
-    }
+
 
 }
