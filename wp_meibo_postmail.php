@@ -2,15 +2,13 @@
 	require_once("wp_meibo_loader.php");
 	$wpwp_classLoader = new WpwpwpClassLoader();
 	$wpwp_classLoader->registerDir(dirname(__FILE__));
-	session_start();	
 
-	$_SESSION["postdata"] = $_POST;
-	$postdata = $_SESSION["postdata"];
+	session_start();
+
 	$wpwp_postsp = new wp_meibo_regit_database();
-	$wpwp_postsp->wp_meibo_sanit_chil($postdata);
+	$wpwp_postsp->wp_meibo_sanit_chil($_SESSION["postdata"]);
 
-
-	echo '<form method="post" action="wp_meibo_postmail.php">';
+	echo "以下の内容を送信しました。";
 
     for($i = 0; $i < count($wpwp_postsp->midasi); $i++)
     {
@@ -33,6 +31,3 @@
     		}
     	}
     }
-
-    echo '<input type="submit">';
-    echo '</form>';

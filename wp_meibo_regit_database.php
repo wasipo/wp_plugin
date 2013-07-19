@@ -45,7 +45,7 @@ class wp_meibo_regit_database
 				$this->text[$key] = $val;
 			}
 
-			$this->patterncheckbox = '/checkbox\d/';
+			$this->patterncheckbox = '/check\d/';
 			if(preg_match($this->patterncheckbox,$key))
 			{	
 				$this->checkbox[$key] = $val;

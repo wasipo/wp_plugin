@@ -74,7 +74,7 @@ class wp_meibo_adminpostdata
                         $count++;
                         if($count == count($columtype["columnumsel".$a])){$this->html .= "</div>"; $count = 0;}
     				} else if($type["type".$a] == "select") {
-                        if($count == 0){ $this->html .= '<div id="post_box'.$i.'"><input type="hidden" name="'.$key.$count.'" value="'.$val.'" /><h2>'.$title["title".$titlec].'</h2><select type="'.$type["type".$a].'" id="'.$key.'" name="'.$val.'"><option value="nonenone">選択してください。</option>'; }
+                        if($count == 0){ $this->html .= '<div id="post_box'.$i.'"><input type="hidden" name="'.$key.$count.'" value="'.$val.'" /><h2>'.$title["title".$titlec].'</h2><select type="'.$type["type".$a].'" id="'.$key.'" name="select'.$i.'"><option value="nonenone">選択してください。</option>'; }
                         $this->html .= '<option value="'.$val.'">'.$val.'</option>';
                         $count++;
                         if($count == count($columtype["columnumsel".$a])){$this->html .= "</select></div>"; $count = 0;}
