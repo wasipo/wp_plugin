@@ -36,7 +36,7 @@
                     jQuery("#f_error").remove();
                     for(var i = 0; i < num; i++)
                     {
-                      jQuery("#main").append('<div id="name'+i+'"><input type="checkbox" /></div>');
+                      jQuery("#main").append('<div id="name'+i+'"><span id="natext'+i+'">チェック！</span><input type="checkbox" /></div>');
                     }
                   } else {
                       jQuery("#main").after('<p id="f_error">10以下の半角数字を入力してください。</p>');
@@ -52,6 +52,7 @@
 
                     if(jQuery(this).next("input").attr("type") !== "text")
                     {
+                      jQuery(this).parent().children("span").text("タイトルを決めてください。");
                        var d_id = jQuery(this).parent("div").attr("id");
                        var eleid = jQuery(this).parent("div").attr("id").substr(-2);
                        var reg = new RegExp(/e\d/);
@@ -92,14 +93,20 @@
 
               if(!id_ele)
               {
-               jQuery(this).after('<div id="elenum'+num+'"><select id="sel'+num+'" name="type'+num+'"><option value="1">text</option><option value="2">radio</option><option value="3">checkbox</option><option value="4">select</option></select><input id="colum_'+num+'" type="text" placeholder="何個？" size="3"></div>');
+               jQuery(this).after('<div id="elenum'+num+'"><span id="elenum_t'+num+'">項目の属性を選んでください。</span><select id="sel'+num+'" name="type'+num+'"><option value="1">text</option><option value="2">radio</option><option value="3">checkbox</option><option value="4">select</option></select><input id="colum_'+num+'" type="text" placeholder="何個？" size="3"></div>');
                var selectid = jQuery(this).next("div").children("select").attr("id");
                var colum = jQuery(this).next("div").children("input[type=text]").attr("id");
+                jQuery("#sel"+num).change(function()
+                { 
+                    jQuery("#elenum_t"+num).text("項目数を入力してください。"); 
+                });
               }
 
 
               jQuery("#"+colum).change(selectid,function()
               {
+
+                  jQuery(this).parent().children("span").text("項目名を決めてください。");
                   var num = jQuery(this).val();
                  
                   if(num <= 10)
@@ -113,7 +120,7 @@
                     }
                     jQuery(this).remove();
                   } else {
-                    jQuery(this).after('<p id="f_error">10以下の数字を入力してください。</p>');
+                      jQuery(this).after('<p id="f_error">10以下の数字を入力してください。</p>');
                   }
               });
               
