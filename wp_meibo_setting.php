@@ -43,6 +43,8 @@ class wp_meibo_setting
                   'post_content' => $html,
                   'tags_input' => 'form',
                   'post_name' => 'wwp_form_mail',
+                  'post_status' => 'publish',
+
              );
         } else {
              return false;
