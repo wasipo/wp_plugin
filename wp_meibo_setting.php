@@ -42,7 +42,7 @@ class wp_meibo_setting
                   'post_title' => 'form',
                   'post_content' => $html,
                   'tags_input' => 'form',
-               //   'post_name' => 'wp_form_meibo'.$num,
+                  'post_name' => 'wwp_form_mail',
              );
         } else {
              return false;

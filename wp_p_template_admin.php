@@ -21,7 +21,7 @@
               
 
 
-               jQuery("input").eq(0).change(function()
+               jQuery("input").eq(0).bind("keypress change", function()
                {
               
                  jQuery("#main div").remove();
@@ -80,7 +80,7 @@
 
         addelement.radio = function(num,id)
         {
-           jQuery("#title_box"+num).change(function()
+           jQuery("#title_box"+num).bind("keypress change",function()
            {
 
               if(num <= 10 && num.length !== 2)
@@ -98,7 +98,10 @@
                var colum = jQuery(this).next("div").children("input[type=text]").attr("id");
                 jQuery("#sel"+num).change(function()
                 { 
-                    jQuery("#elenum_t"+num).text("項目数を入力してください。"); 
+                    if(jQuery('#colum_'+num))
+                    {
+                      jQuery("#elenum_t"+num).text("項目数を入力してください。"); 
+                    }
                 });
               }
 
@@ -144,12 +147,96 @@
 
 
         </script>
+        <style>
+
+        .wp_view_cat
+        {
+          margin-bottom: 40px;
+        }
+        #cat_0
+        {
+          margin-top: 200px;
+        }
+        #wwp_form
+        {
+          font-size: 100%;
+        }
+
+
+        </style>
 
 
         <form action="#" method="post" id="main">
               <br />
               <br />
               <br />
-              何個項目作る？<input placeholder="半角" type="text" name="meibo_colum" size="3" />
+              設問数を入力してください。<input placeholder="半角" type="text" name="meibo_colum" size="3" />
               <input id="sub" type="submit" value="送信" />
         </form>
+
+
+<?php
+$args = array(
+  'numberposts'     => 5,
+  'offset'          => 0,
+  'category'        => "",
+  'orderby'         => 'post_date',
+  'order'           => 'DESC',
+  'include'         => "",
+  'exclude'         => "",
+  'meta_key'        => "",
+  'meta_value'      => "",
+  'post_type'       => 'page',
+  'post_mime_type'  => "",
+  'post_parent'     => "",
+  'post_status'     => 'publish' );
+
+$posts_array = get_posts( $args );
+
+
+//var_dump($posts_array);
+
+$j = 0;
+for($i = 0; $i < count($posts_array); $i++)
+{
+
+  $wp_mb_pattern = '/wwp_form_mail|wwp_form_mail-\d$/';
+  if(preg_match($wp_mb_pattern,$posts_array[$i]->post_name))
+  {
+    $wp_mail_confirm[$j] = $posts_array[$i];
+    $j++;
+  }
+
+}
+
+
+if(!empty($wp_mail_confirm))
+{
+  foreach($wp_mail_confirm as $num => $obj)
+  {
+    echo '<div id="cat_'.$num.'" class="wp_view_cat">';
+    foreach($obj as $key => $val)
+    {
+      switch($key)
+      {
+        //固定ページ取得中　増えるかも知れないので、すいっち。
+          case "ID":
+          echo '<input type="checkbox" name="ID'.$val.'" value="'.$val.'" />このフォームを削除';
+          break;
+          case "post_title":
+          echo '<div style="margin-bottom:20px">'.$val.'</div>';          
+          break;
+          case "post_content":
+          echo '<div class="wp_post_content">'.$val.'</div>';
+          break;
+
+      }
+    }
+    echo '</div>';
+  }
+}
+?>
+<script>
+jQuery(".wp_post_content").find("input[type=submit]").attr("disabled","disabled");
+</script>
+

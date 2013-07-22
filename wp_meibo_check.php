@@ -31,7 +31,7 @@ class wp_meibo_check
 	
 	//========postdata===========
 	//このメソッドは出力後も使う
-	var_dump($data);
+	//var_dump($data);
 
 		foreach($data as $key => $val)
 		{
