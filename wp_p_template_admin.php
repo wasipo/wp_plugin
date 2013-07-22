@@ -176,6 +176,9 @@
 
 
 <?php
+
+//固定ページ取得のパラメータ
+
 $args = array(
   'numberposts'     => 5,
   'offset'          => 0,
@@ -196,6 +199,8 @@ $posts_array = get_posts( $args );
 
 //var_dump($posts_array);
 
+//フォームのある記事だけスラッグを元にオブジェクトを引っ張ってくる
+
 $j = 0;
 for($i = 0; $i < count($posts_array); $i++)
 {
@@ -209,6 +214,7 @@ for($i = 0; $i < count($posts_array); $i++)
 
 }
 
+//展開
 
 if(!empty($wp_mail_confirm))
 {
@@ -217,19 +223,16 @@ if(!empty($wp_mail_confirm))
     echo '<div id="cat_'.$num.'" class="wp_view_cat">';
     foreach($obj as $key => $val)
     {
+
       switch($key)
       {
         //固定ページ取得中　増えるかも知れないので、すいっち。
           case "ID":
           echo '<input type="checkbox" name="ID'.$val.'" value="'.$val.'" />このフォームを削除';
           break;
-          case "post_title":
-          echo '<div style="margin-bottom:20px">'.$val.'</div>';          
-          break;
           case "post_content":
           echo '<div class="wp_post_content">'.$val.'</div>';
           break;
-
       }
     }
     echo '</div>';
@@ -237,6 +240,8 @@ if(!empty($wp_mail_confirm))
 }
 ?>
 <script>
-jQuery(".wp_post_content").find("input[type=submit]").attr("disabled","disabled");
+jQuery(".wp_post_content").find("input[type=submit]").remove();
 </script>
-
+<form action="" method="post">
+  <input type="submit" name="wp_erase_post" value="チェックした記事を削除する" />
+</form>
