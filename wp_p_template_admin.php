@@ -42,7 +42,7 @@
                       jQuery("#main").after('<p id="f_error">10以下の半角数字を入力してください。</p>');
                   }
 
-                  jQuery("input[type=checkbox]").change(function(e)
+                  jQuery("#main input[type=checkbox]").change(function(e)
                   {
 
                     if(jQuery(this).attr("checked") !== "checked")
@@ -152,10 +152,24 @@
         .wp_view_cat
         {
           margin-bottom: 40px;
+          margin-top: 100px;
+          width: 500px;
+        }
+        .wp_view_cat input[type=radio]
+        {
+          margin-right: 10px;
+          margin-left: 5px;
+        }
+        .wp_view_cat input[type=text]
+        {
+          width: 200px;
+          margin-left: 10px;
+          margin-right: 5px;
+          margin-bottom: 10px;
         }
         #cat_0
         {
-          margin-top: 200px;
+          
         }
         #wwp_form
         {
@@ -165,17 +179,21 @@
 
         </style>
 
+        <div>
+          <form action="#" method="post" id="main">
+                <br />
+                <br />
+                <br />
+                設問数を入力してください。<input placeholder="半角" type="text" name="meibo_colum" size="3" />
+                <input id="sub" type="submit" value="送信" />
+          </form>
+        </div>
 
-        <form action="#" method="post" id="main">
-              <br />
-              <br />
-              <br />
-              設問数を入力してください。<input placeholder="半角" type="text" name="meibo_colum" size="3" />
-              <input id="sub" type="submit" value="送信" />
-        </form>
 
-
+<div id="edit_wrapper">
 <?php
+
+
 
 //固定ページ取得のパラメータ
 
@@ -223,7 +241,6 @@ if(!empty($wp_mail_confirm))
     echo '<div id="cat_'.$num.'" class="wp_view_cat">';
     foreach($obj as $key => $val)
     {
-
       switch($key)
       {
         //固定ページ取得中　増えるかも知れないので、すいっち。
@@ -239,9 +256,36 @@ if(!empty($wp_mail_confirm))
   }
 }
 ?>
+</div>
+
 <script>
-jQuery(".wp_post_content").find("input[type=submit]").remove();
+  jQuery(".wp_post_content").find("input[type=submit]").unwrap();
+  jQuery(".wp_post_content").find("input[type=hidden]").remove();
+  jQuery(".wp_post_content").find("input[type=submit]").remove();
+  jQuery(".wp_post_content").find("input").attr("disabled","disabled");
+  jQuery(".wp_post_content").find("select").attr("disabled","disabled");
+  jQuery("#edit_wrapper").wrap('<form id="wpp_edit_form" action="#" method="post" />');
+  jQuery("#edit_wrapper").append('<input type="submit" value="チェックをした分削除する" name="edit_form" />');
+  var roop = jQuery("div").filter(function(){return this.id.match(/[cat]_\d$/);});
+  var idget = [];
+
+  roop.each(function(e)
+  {
+    idget[e] = jQuery(this).attr("id");    
+  });
+
+
+  var checkele = [];
+
+  jQuery("#wp_erase_submit").click(idget,function(e)
+  {
+          jQuery.each(idget,function(ev,v){
+
+            if(jQuery("#"+idget[ev]).find("input[type=checkbox]").eq(0).attr("checked") == "checked")
+            {
+                checkele[v] = jQuery("#"+idget[ev]).find("input[type=checkbox]").eq(0).val();
+            }
+
+          });
+  });
 </script>
-<form action="" method="post">
-  <input type="submit" name="wp_erase_post" value="チェックした記事を削除する" />
-</form>
