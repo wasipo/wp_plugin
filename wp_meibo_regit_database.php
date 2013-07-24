@@ -6,8 +6,6 @@ class wp_meibo_regit_database
     private $db_serch;
     private $sanitdata;
 
-	//正規表現パターン格納　どっかで使えるかなーと思って
-	//継承すればよかった。でもコンストラクタが居た。おわた。
     public $patterntext;
     public $patternradio;
     public $patterncheckbox;
@@ -19,6 +17,7 @@ class wp_meibo_regit_database
     public $radio;
     public $select;
     public $midasi;
+    public $form_title;
 
     function wp_meibo_add($midasi = "",$data) 
     {

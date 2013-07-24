@@ -30,7 +30,7 @@ class wp_meibo_setting
 
 
     //固定ページに渡すパラメータ
-    public function wp_meibo_inst($user,$html="")
+    public function wp_meibo_inst($user,$title,$html="")
     {
         if(!empty($html))
         {
@@ -39,7 +39,7 @@ class wp_meibo_setting
                   'ping_status' => 'closed',
                   'post_author' => $user,
                   'post_type' => 'page',
-                  'post_title' => 'form',
+                  'post_title' => $title["meibo_title"],
                   'post_content' => $html,
                   'tags_input' => 'form',
                   'post_name' => 'wwp_form_mail',

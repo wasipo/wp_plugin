@@ -11,6 +11,13 @@ require_once ABSPATH . WPINC . '/pluggable.php';
 global $current_user;
 get_currentuserinfo();
 
+if($_GET["form_confirm"])
+{
+	require_once("wp_p_confirm.php");
+	$wpwp_confirm = new wp_form_temlate;
+	
+}
+
 if(!empty($_POST["edit_form"]))
 {
 	$editdata = $_POST;
@@ -27,8 +34,7 @@ if(!empty($wpwp_check->wp_meibo_midasi))
 {
 	$wpwp_res = array();
 	$wpwp_post = new wp_meibo_adminpostdata($wpwp_check->wp_meibo_type,$wpwp_check->wp_meibo_midasi,$wpwp_check->wp_meibo_naiyou);
-	
-	$wpwp_set->wp_meibo_inst($current_user->ID,$wpwp_post->html);
+	$wpwp_set->wp_meibo_inst($current_user->ID,$wpwp_check->wp_meibo_title,$wpwp_post->html);
 
 	$wp_rewrite = new WP_Rewrite();
 	if(!empty($wpwp_set->inst_data))

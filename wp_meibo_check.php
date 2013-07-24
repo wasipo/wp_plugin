@@ -6,11 +6,11 @@ class wp_meibo_check
 	public $wp_meibo_midasi;
 	public $wp_meibo_naiyou;
 	public $wp_meibo_type;
+	public $wp_meibo_title;
 	private $count;
 	private $p_count;
 	public $data;
 	private $pattern;
-
 
 	function __construct()
 	{
@@ -35,6 +35,11 @@ class wp_meibo_check
 
 		foreach($data as $key => $val)
 		{
+
+			if($key == "meibo_title")
+			{	
+				$this->wp_meibo_title[$key] = $val;
+			}
 
 			$this->pattern = '/^type\d|type\d{2}/';
 			if(preg_match($this->pattern,$key))
