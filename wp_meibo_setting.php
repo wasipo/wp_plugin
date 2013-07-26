@@ -14,9 +14,10 @@ class wp_meibo_setting
     public function wp_meibo_add_pages() 
     {
       add_menu_page(
-        'form設定','form設定',  'level_8', __FILE__, 
-        array($this,'wp_meibo_add_html_pages'), '', 26
+        'フォーム設定','フォーム設定','8', __FILE__, 
+        array(&$this,'wp_meibo_add_html_pages'), '', 26
         );
+      add_submenu_page(__FILE__,'フォーム一覧', 'フォーム一覧','8','wp_p_template_admin.php',array(&$this,'wp_meibo_confirm'));
     }
 
 
@@ -26,6 +27,11 @@ class wp_meibo_setting
 
       include("wp_p_template_admin.php");
 
+    }
+
+    public function wp_meibo_confirm()
+    {
+     include("wp_p_template_admin_confirm.php");
     }
 
 

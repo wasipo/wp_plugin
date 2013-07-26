@@ -11,11 +11,9 @@ require_once ABSPATH . WPINC . '/pluggable.php';
 global $current_user;
 get_currentuserinfo();
 
-if($_GET["form_confirm"])
+if($_POST["form_confirm"])
 {
-	require_once("wp_p_confirm.php");
-	$wpwp_confirm = new wp_form_temlate;
-	
+	$wpwp_confirm = new wp_form_template;
 }
 
 if(!empty($_POST["edit_form"]))

@@ -1,8 +1,9 @@
          <script>
 
+         //入力側
+
         jQuery(function()
          {
-
 
               jQuery("#main").keypress(function(ev) {
                 if ((ev.which && ev.which === 13) || (ev.keyCode && ev.keyCode === 13)) {
@@ -37,7 +38,7 @@
                     jQuery("#f_error").remove();
                     for(var i = 0; i < num; i++)
                     {
-                      jQuery("#main").append('<div id="name'+i+'"><span id="natext'+i+'">チェック！</span><input type="checkbox" /></div>');
+                      jQuery("#main").append('<div id="name'+i+'"><span id="natext'+i+'">チェック！</span><input id="check'+i+'" type="checkbox" /></div>');
                     }
                   } else {
                       jQuery("#main").after('<p id="f_error">10以下の半角数字を入力してください。</p>');
@@ -73,6 +74,23 @@
                   });
 
               });
+
+         });
+
+//出力側
+         jQuery(function()
+         {
+
+            
+            jQuery('input[name=meibo_title]').bind("keypress change blur",function()
+            {
+              var title = jQuery('input[name=meibo_title]').val();
+              jQuery("#wp_view").find("#wp_form_title").remove();
+              jQuery("#wp_view").append('<div id="wp_form_title">'+title+'</div>');
+            });
+
+
+
 
          });
 
@@ -211,120 +229,11 @@
                   <input id="sub" type="submit" class="button-primary" value="送信" />
             </form>
           </div>
-        
+          <div id="wp_view">
+           
+
+          </div>
 
 
-<div id="edit_wrapper">
-  <a href="wp_meibo_setting.php?form_confirm" class="add-new-h2">作成したフォームを表示</a>
-<?php
-
-
-
-//固定ページ取得のパラメータ
-
-/*$args = array(
-  'numberposts'     => 5,
-  'offset'          => 0,
-  'category'        => "",
-  'orderby'         => 'post_date',
-  'order'           => 'DESC',
-  'include'         => "",
-  'exclude'         => "",
-  'meta_key'        => "",
-  'meta_value'      => "",
-  'post_type'       => 'page',
-  'post_mime_type'  => "",
-  'post_parent'     => "",
-  'post_status'     => 'publish' );*/
-
-/*$posts_array = get_posts( $args );*/
-
-
-//var_dump($posts_array);
-
-//フォームのある記事だけスラッグを元にオブジェクトを引っ張ってくる
-
-//展開
-
-/*if(!empty($wp_mail_confirm))
-{
-  foreach($wp_mail_confirm as $num => $obj)
-  {
-    echo '<div id="cat_'.$num.'" class="wp_view_cat">';
-    foreach($obj as $key => $val)
-    {
-      switch($key)
-      {
-        //固定ページ取得中　増えるかも知れないので、すいっち。
-          case "ID":
-          echo '<span class="strike_title">'.$obj->post_title.'</span>を削除';
-          echo '<input type="checkbox" name="ID'.$val.'" value="'.$val.'" />';
-          break;
-          case "post_content":
-          echo '<div class="wp_post_content">'.$val.'</div>';
-          break;
-      }
-    }
-    echo '</div>';
-  }
-}*/
-?>
-</div>
-
-<script>
-  
-//  jQuery("#edit_wrapper").hide();
-  jQuery(".wp_post_content").find("input[type=submit]").unwrap();
-  jQuery(".wp_post_content").find("input[type=hidden]").remove();
-  jQuery(".wp_post_content").find("input[type=submit]").attr("disabled","disabled");
-  jQuery(".wp_post_content").find("input").attr("disabled","disabled");
-  jQuery(".wp_post_content").find("select").attr("disabled","disabled");
-  jQuery("#edit_wrapper").wrap('<form id="wpp_edit_form" action="#" method="post" />');
-  
-  var roop = jQuery("div").filter(function()
-             {
-                return this.id.match(/[cat]_\d$/);
-             });
-
-  var idget = [];
-
-  if(roop.length !== 0)
-  {
-      jQuery("#edit_wrapper").before('<div class="title_wrapwp"><h2>出力済みフォーム</h2></div>');
-      jQuery("#edit_wrapper").append('<input type="submit" class="button-primary" value="チェックをしたフォームを削除する" name="edit_form" />');
-  }
-
-  roop.each(function(e)
-  {
-    idget[e] = jQuery(this).attr("id");    
-  });
-
-
-  var checkele = [];
-
-  jQuery("#wp_erase_submit").click(idget,function(e)
-  {
-          jQuery.each(idget,function(ev,v){
-
-            if(jQuery("#"+idget[ev]).find("input[type=checkbox]").eq(0).attr("checked") == "checked")
-            {
-                checkele[v] = jQuery("#"+idget[ev]).find("input[type=checkbox]").eq(0).val();
-            }
-
-          });
-  });
-
-/*  
-  jQuery("#show_logs").toggle(function(e)
-  {
-    jQuery(this).attr("value","隠す");
-    jQuery("#edit_wrapper").show();
-  },function(){
-    jQuery(this).attr("value","表示する");
-    jQuery("#edit_wrapper").hide();
-  });
-*/
-
-</script>
        <!-- /.wrap --></div>
         <div>
