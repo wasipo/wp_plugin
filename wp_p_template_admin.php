@@ -25,7 +25,6 @@
                jQuery("input[name=meibo_colum]").bind("keypress change", function()
                {
               
-
                  jQuery("#main div").remove();
 
                   var num = 0;
@@ -77,6 +76,7 @@
 
          });
 
+
 //出力側
          jQuery(function()
          {
@@ -89,7 +89,13 @@
               jQuery("#wp_view").append('<div id="wp_form_title">'+title+'</div>');
             });
 
-
+            jQuery("input[name=meibo_colum]").bind("keypress change blur",function(event)
+            {
+                  var colum = jQuery(this).val();
+                  return colum;
+            });
+            
+            console.log(event.result);
 
 
          });
@@ -220,6 +226,7 @@
         }
         </style>
         <div class="wrap">
+
           <div id="icon-options-general" class="icon32"><br /></div>
             <h2>フォーム新規作成</h2>
           <div class="wpform_wrapper">
@@ -233,7 +240,4 @@
            
 
           </div>
-
-
        <!-- /.wrap --></div>
-        <div>

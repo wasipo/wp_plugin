@@ -1,4 +1,60 @@
+<script>
 
+  jQuery(function(){
+
+  //  jQuery("#edit_wrapper").hide();
+    jQuery(".wp_post_content").find("input[type=submit]").unwrap();
+    jQuery(".wp_post_content").find("input[type=hidden]").remove();
+    jQuery(".wp_post_content").find("input[type=submit]").attr("disabled","disabled");
+    
+    var roop = jQuery("div").filter(function()
+               {
+                  return this.id.match(/[cat]_\d$/);
+               });
+
+    var idget = [];
+
+    if(roop.length !== 0)
+    {
+        jQuery("#edit_wrapper").wrap('<form id="wpp_edit_form" action="#" method="post" />');
+        jQuery("#edit_wrapper").before('<div class="title_wrapwp"><h2>出力済みフォーム</h2></div>');
+        jQuery("#edit_wrapper").append('<input type="submit" class="button-primary" value="チェックをしたフォームを削除する" name="edit_form" />');
+    } else {
+        jQuery("#edit_wrapper").append('<p>まだ投稿がありません！</p>');
+    }
+
+    roop.each(function(e)
+    {
+      idget[e] = jQuery(this).attr("id");
+    });
+
+
+    var checkele = [];
+
+    jQuery("#wp_erase_submit").click(idget,function(e)
+    {
+            jQuery.each(idget,function(ev,v){
+
+              if(jQuery("#"+idget[ev]).find("input[type=checkbox]").eq(0).attr("checked") == "checked")
+              {
+                  checkele[v] = jQuery("#"+idget[ev]).find("input[type=checkbox]").eq(0).val();
+              }
+
+            });
+    });
+
+  /*  
+    jQuery("#show_logs").toggle(function(e)
+    {
+      jQuery(this).attr("value","隠す");
+      jQuery("#edit_wrapper").show();
+    },function(){
+      jQuery(this).attr("value","表示する");
+      jQuery("#edit_wrapper").hide();
+    });
+  */
+});
+</script>
         <style>
         .wp_view_cat
         {
@@ -54,7 +110,7 @@
         <div class="wrap">
           <div id="icon-options-general" class="icon32"><br /></div>
             <h2>フォーム確認</h2>
-
+            <div id="edit_wrapper">
 <?php
 
 
@@ -123,60 +179,6 @@ if(!empty($wp_mail_confirm))
 }
 ?>
 
-<script>
-  
-//  jQuery("#edit_wrapper").hide();
-  jQuery(".wp_post_content").find("input[type=submit]").unwrap();
-  jQuery(".wp_post_content").find("input[type=hidden]").remove();
-  jQuery(".wp_post_content").find("input[type=submit]").attr("disabled","disabled");
-  jQuery(".wp_post_content").find("input").attr("disabled","disabled");
-  jQuery(".wp_post_content").find("select").attr("disabled","disabled");
-  jQuery("#edit_wrapper").wrap('<form id="wpp_edit_form" action="#" method="post" />');
-  
-  var roop = jQuery("div").filter(function()
-             {
-                return this.id.match(/[cat]_\d$/);
-             });
 
-  var idget = [];
-
-  if(roop.length !== 0)
-  {
-      jQuery("#edit_wrapper").before('<div class="title_wrapwp"><h2>出力済みフォーム</h2></div>');
-      jQuery("#edit_wrapper").append('<input type="submit" class="button-primary" value="チェックをしたフォームを削除する" name="edit_form" />');
-  }
-
-  roop.each(function(e)
-  {
-    idget[e] = jQuery(this).attr("id");    
-  });
-
-
-  var checkele = [];
-
-  jQuery("#wp_erase_submit").click(idget,function(e)
-  {
-          jQuery.each(idget,function(ev,v){
-
-            if(jQuery("#"+idget[ev]).find("input[type=checkbox]").eq(0).attr("checked") == "checked")
-            {
-                checkele[v] = jQuery("#"+idget[ev]).find("input[type=checkbox]").eq(0).val();
-            }
-
-          });
-  });
-
-/*  
-  jQuery("#show_logs").toggle(function(e)
-  {
-    jQuery(this).attr("value","隠す");
-    jQuery("#edit_wrapper").show();
-  },function(){
-    jQuery(this).attr("value","表示する");
-    jQuery("#edit_wrapper").hide();
-  });
-*/
-
-</script>
        <!-- /.wrap --></div>
-        <div>
+</div>
