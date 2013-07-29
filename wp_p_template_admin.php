@@ -46,6 +46,8 @@
                   jQuery("#main input[type=checkbox]").change(function(e)
                   {
 
+                    addelement.view_title();
+
                     if(jQuery(this).attr("checked") !== "checked")
                     {
                       jQuery(this).parent().remove();
@@ -81,7 +83,7 @@
          jQuery(function()
          {
 
-            var count = 0;
+
             jQuery('input[name=meibo_title]').bind("keypress change blur",function()
             {
               var title = jQuery('input[name=meibo_title]').val();
@@ -89,27 +91,47 @@
               jQuery("#wp_view").append('<div id="wp_form_title">'+title+'</div>');
             });
 
-            jQuery("input[name=meibo_colum]").bind("keypress change blur",function(event)
+            var conum = jQuery("input[name=meibo_colum]");
+
+            var checkfg = 0;
+            conum.bind("keypress change blur",function(event)
             {
               //wp_form_titleのエラー出す
               
-
                   jQuery("#wp_view").children().filter(function(){return this.id.match(/colums/);}).remove();
                   var colum = jQuery(this).val();
                   for(var i = 0; i < colum; i++)
                   {
                     jQuery("#wp_form_title").after('<div id="view_colums'+i+'"></div>');
+
                   }
 
             });
 
 
+
+
+
+
+
           });
 
-        //    jQuery()
+
 
 
         var addelement = {};
+
+        addelement.view_title = function()
+        {
+
+            jQuery("#wp_view").children().filter(function(){return this.id.match(/colums/);}).each(function(e)
+            {
+                console.log(e);
+            });
+
+
+        }
+
 
         addelement.radio = function(num,id)
         {
