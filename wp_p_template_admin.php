@@ -81,7 +81,7 @@
          jQuery(function()
          {
 
-            
+            var count = 0;
             jQuery('input[name=meibo_title]').bind("keypress change blur",function()
             {
               var title = jQuery('input[name=meibo_title]').val();
@@ -91,14 +91,22 @@
 
             jQuery("input[name=meibo_colum]").bind("keypress change blur",function(event)
             {
+              //wp_form_titleのエラー出す
+              
+
+                  jQuery("#wp_view").children().filter(function(){return this.id.match(/colums/);}).remove();
                   var colum = jQuery(this).val();
-                  return colum;
+                  for(var i = 0; i < colum; i++)
+                  {
+                    jQuery("#wp_form_title").after('<div id="view_colums'+i+'"></div>');
+                  }
+
             });
-            
-            console.log(event.result);
 
 
-         });
+          });
+
+        //    jQuery()
 
 
         var addelement = {};
