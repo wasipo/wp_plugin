@@ -46,7 +46,7 @@
                   jQuery("#main input[type=checkbox]").change(function(e)
                   {
 
-                    addelement.view_title();
+
 
                     if(jQuery(this).attr("checked") !== "checked")
                     {
@@ -83,7 +83,6 @@
          jQuery(function()
          {
 
-
             jQuery('input[name=meibo_title]').bind("keypress change blur",function()
             {
               var title = jQuery('input[name=meibo_title]').val();
@@ -102,16 +101,16 @@
                   var colum = jQuery(this).val();
                   for(var i = 0; i < colum; i++)
                   {
-                    jQuery("#wp_form_title").after('<div id="view_colums'+i+'"></div>');
-
+                    if(i == 0)
+                    {
+                      jQuery("#wp_form_title").after('<div id="view_colums'+i+'"></div>');
+                    } else {
+                      var j = i-1;
+                      jQuery('#view_colums'+j).after('<div id="view_colums'+i+'"></div>');
+                    }
                   }
 
             });
-
-
-
-
-
 
 
           });
@@ -121,22 +120,28 @@
 
         var addelement = {};
 
-        addelement.view_title = function()
+        addelement.view_title = function(ele)
         {
 
-            jQuery("#wp_view").children().filter(function(){return this.id.match(/colums/);}).each(function(e)
-            {
-                console.log(e);
-            });
+          var number = ele.getAttribute("id").substr(-1);
+          var contents = ele.value;
+          console.log(contents);
 
+          jQuery("#view_colums"+number).text(contents);
 
         }
 
 
         addelement.radio = function(num,id)
         {
-           jQuery("#title_box"+num).bind("keypress change",function()
+           jQuery("#title_box"+num).bind("keypress change",function(e)
            {
+
+            
+              var v_cont = e.target;
+
+              addelement.view_title(v_cont);
+
 
               if(num <= 10 && num.length !== 2)
               {
